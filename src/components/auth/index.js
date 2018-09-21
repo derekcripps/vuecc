@@ -1,13 +1,13 @@
 import router from '@/router'
 import Axios from 'axios'
 
-const API_URL = 'http://localhost:8000/main';
-const LOGIN_URL = API_URL + '/login';
+//const API_URL = 'http://localhost:8000/main';
 
 export default {
 
 user: {
-    authenticated: false
+    authenticated: false,
+    permissions: []
 },
 
   // Send a request to the login URL and save the returned JWT
@@ -21,6 +21,12 @@ user: {
       localStorage.setItem('isAuthenticated', true);
       localStorage.setItem('username', creds.username);
       this.user.authenticated = true;
+      // Get the list of objects this user is authorized to
+      Axios.get('/main/permissions_view', { headers: this.getAuthHeader()})
+      .then((response) => {          
+          this.user.permissions = response.data;
+          console.log(this.user.permissions)
+      });
       router.push({name: "Main"})
     })
     .catch(error => {
@@ -46,7 +52,9 @@ user: {
            this.user.authenticated = false      
         }
     },
-
+    getPermissions() {
+        return this.user.permissions;
+    },
   // The object to be passed as a header for authenticated requests
   getAuthHeader() {
     return {

@@ -81,7 +81,7 @@
                 Axios.get('https://jsonplaceholder.typicode.com/photos')
                     .then((response) => {
                         this.items = response.data;
-                        console.log(response.data);
+                        //console.log(response.data);
                     })
                         .catch(error => {
                         console.log(error);

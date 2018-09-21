@@ -14,7 +14,9 @@
                         hide-details
                         v-model="search"
                     ></v-text-field>
-                    <v-btn flat @click= "companyAdd"><v-icon large color="white">add</v-icon></v-btn>
+                    <div v-if="authAddCompany === true">
+                        <v-btn flat @click= "companyAdd"><v-icon large color="white">add</v-icon></v-btn>
+                    </div>
                 </v-card-title>
                 <v-data-table
                     v-bind:headers="headers"
@@ -46,6 +48,9 @@
         data: function () {
             return {
                 search: '',
+                permissions: [],
+                authAddCompany: false,
+                authViewCompany: false,
                 headers: [
                     {
                         text: 'Code',
@@ -74,7 +79,7 @@
                 Axios.get('/company/', { headers: auth.getAuthHeader()})
                     .then((response) => {
                         this.items = response.data;
-                        console.log(response.data);
+                        // console.log(response.data);
                     });
             },
             // async companyList () {
@@ -87,6 +92,18 @@
             },
             companyAdd(){
                 this.$router.push({name: "CompanyAdd"})
+            },
+            getPermissions() {
+                this.permissions = auth.getPermissions();
+                console.log(this.permissions);
+                if (this.permissions.indexOf("main.add_company") != -1) {
+                   this.authAddCompany = true; 
+                };
+                if (this.permissions.indexOf("main.view_company") != -1) {
+                   this.authViewCompany = true; 
+                };                
+                console.log('Can add: ' + this.authAddCompany);
+                console.log('Can view: ' + this.authViewCompany);
             },
             customFilter(items, search, filter) {
                 //this custom filter will do a multi-match separated by a space.
@@ -108,7 +125,7 @@
         },
         mounted() {
             this.fetchCompanyList();
-            //this.companyList();
+            this.getPermissions();
         }
     }
 </script>

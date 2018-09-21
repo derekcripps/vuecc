@@ -14,6 +14,9 @@
                         hide-details
                         v-model="search"
                     ></v-text-field>
+                    <div v-if="authAddWarehouse === true">
+                        <v-btn flat @click= "warehouseAdd"><v-icon large color="white">add</v-icon></v-btn>
+                    </div>
                 </v-card-title>
                 <v-data-table
                     v-bind:headers="headers"
@@ -43,6 +46,9 @@
         data: function () {
             return {
                 search: '',
+                permissions: [],
+                authAddWarehouse: false,
+                authViewWarehouse: false,
                 headers: [
                     {
                         text: 'Code',
@@ -77,6 +83,19 @@
             warehouseEdit(id_parm) {
               this.$router.push({name: "WarehouseEdit", params: {id: id_parm} })
             },
+            warehouseAdd(){
+                this.$router.push({name: "WarehouseAdd"})
+            },
+            getPermissions() {
+                this.permissions = auth.getPermissions();
+                console.log(this.permissions);
+                if (this.permissions.indexOf("main.add_warehouse") != -1) {
+                   this.authAddWarehouse = true; 
+                };
+                if (this.permissions.indexOf("main.view_warehouse") != -1) {
+                   this.authViewWarehouse = true; 
+                };                
+            },
             customFilter(items, search, filter) {
                 //this custom filter will do a multi-match separated by a space.
                 //e.g
@@ -97,6 +116,7 @@
         },
         mounted() {
             this.fetchWarehouseList();
+            this.getPermissions();
         }
     }
 </script>
