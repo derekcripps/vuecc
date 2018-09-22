@@ -10,45 +10,6 @@
         dark
     >
         <v-list dense class="blue-grey darken-2" >
-           <v-list-group>
-              <v-list-tile slot="activator" >
-                <v-list-tile-action>
-                  <v-icon>settings</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>Settings</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-
-              <v-list-tile @click="settingsMenu">
-                <v-list-tile-content>
-                  <v-list-tile-title>SETTINGS MENU</v-list-tile-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-icon>menu</v-icon>
-                </v-list-tile-action>
-              </v-list-tile>
-              <div v-if="authViewCompany === true">
-              <v-list-tile @click="companyList">
-                <v-list-tile-content>
-                  <v-list-tile-title>Companies</v-list-tile-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-icon>domain</v-icon>
-                </v-list-tile-action>
-              </v-list-tile>
-              </div>
-              <div v-if="authViewWarehouse === true">
-              <v-list-tile @click="warehouseList">
-                <v-list-tile-content>
-                  <v-list-tile-title>Warehouses</v-list-tile-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-icon>location_city</v-icon>
-                </v-list-tile-action>
-              </v-list-tile>
-              </div>
-            </v-list-group>
 
             <v-list-tile @click="home">
                 <v-list-tile-action>
@@ -56,6 +17,22 @@
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>Home</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile @click="companyList">
+                <v-list-tile-action>
+                    <v-icon>domain</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>Companies</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile @click="warehouseList">
+                <v-list-tile-action>
+                    <v-icon>location_city</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>Warehouses</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile @click="testAPI">
@@ -75,7 +52,7 @@
                 </v-list-tile-content>
             </v-list-tile>
             </div>
-            <div v-if="isAuthorized ==='false'" >
+            <div v-else >
             <v-list-tile @click="logout">
                 <v-list-tile-action>
                 </v-list-tile-action>
@@ -90,7 +67,7 @@
     <v-toolbar app fixed dark color="indigo darken-4" flat clipped-left>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <v-toolbar-title>SikuCC</v-toolbar-title>
-        <v-spacer></v-spacer>      
+        <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn v-if="isAuthorized ==='true'" flat @click="logout">Logout</v-btn>
       <v-btn v-else flat @click="login">Login</v-btn>

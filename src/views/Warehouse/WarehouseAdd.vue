@@ -15,7 +15,7 @@
                         <v-text-field label ="Name" v-model="warehouseName" :rules="nameRules" required ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm6>
-                        <v-select :items="companies" item-text="name" item-value="id" 
+                        <v-select :items="companies" item-text="name" item-value="id"
                             v-model="warehouseCompany" label="Company" class="input-group--focused" :rules="companyRules">
                         </v-select>
                     </v-flex>
@@ -23,7 +23,7 @@
             </v-container>
             <v-btn outline color="success" @click="warehouseSave">Save</v-btn>
             <v-btn outline color="warning" @click="cancel">Cancel</v-btn>
-        
+
             <v-dialog v-model="errorDialog" max-width="500px">         <!-- Error Dialog Box Start -->
                 <v-card>
                     <v-card-title>
@@ -54,7 +54,7 @@
                 valid: true,
                 warehouseName: '',
                 warehouseCode: '',
-                warehouseCustomer: 0,
+                warehouseCompany: 0,
                 companies: [],
                 nameRules: [
                     (v) => !!v || 'Name is required'
@@ -70,7 +70,7 @@
             }
         },
         methods: {
-            warehouseSave() { 
+            warehouseSave() {
                 if(this.$refs.form.validate()) {
                     Axios.post('warehouse/', {code: this.warehouseCode, name: this.warehouseName, company: this.warehouseCompany},
                         { headers: auth.getAuthHeader()})
@@ -101,7 +101,7 @@
         mounted() {
             this.fetchCompanies();
         },
-        
+
     }
 </script>
 

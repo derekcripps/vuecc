@@ -23,8 +23,14 @@
 </template>
 
 <script>
+import auth from '@/components/auth'
     export default {
-        name: "mainmenu"
+        name: "Main",
+  methods: {
+    mounted() {
+          this.getPermissions();
+      },
+      },
     }
 </script>
 

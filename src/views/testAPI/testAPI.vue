@@ -4,7 +4,7 @@
         <v-content>
           <v-card>
                 <v-card-title class="indigo darken-1">
-                    <H2 class="white--text">Test Photos - jsonplaceholder.typicode.com/</H2>
+                    <H2 class="white--text">5,000 Records returned lickity split.  search away!</H2>
                     <v-spacer></v-spacer>
                     <v-text-field
                         dark
@@ -24,18 +24,17 @@
                     class="elevation-1"
                     >
                     <template slot="items" slot-scope="props">
-                        
                         <td>{{props.item.id}}</td>
                         <td>
                             <v-img
                                 :src=props.item.thumbnailUrl
                                 :lazy-src=props.item.thumbnailUrl
-                                aspect-ratio="1"
+                                height="50"
+                                width="50"
                                 class="grey lighten-2"
                             ></v-img>
                             </td>
                         <td>{{props.item.title}}</td>
-                    
                     </template>
                 </v-data-table>
           </v-card>

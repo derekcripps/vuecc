@@ -41,17 +41,3 @@ new Vue({
   template: '<App/>',
   components: { App }
 }).$mount('#app')
-
-
-
-
-
-/* eslint-disable no-new 
-new Vue({
-  el: '#app',
-  router,
-  store,
-  template: '<App/>',
-  components: { App },
-  render: h => h(App),
-}) */

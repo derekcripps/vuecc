@@ -23,7 +23,7 @@ user: {
       this.user.authenticated = true;
       // Get the list of objects this user is authorized to
       Axios.get('/main/permissions_view', { headers: this.getAuthHeader()})
-      .then((response) => {          
+      .then((response) => {
           this.user.permissions = response.data;
           console.log(this.user.permissions)
       });
@@ -31,8 +31,9 @@ user: {
     })
     .catch(error => {
         localStorage.setItem('isAuthenticated', false);
-        console.log(error)
-        context.error = error
+        console.log(error);
+        context.error = error;
+        router.push({name: "Login"});
     })
   },
 
@@ -41,6 +42,7 @@ user: {
         localStorage.removeItem('id_token')
         localStorage.setItem('isAuthenticated', false);
         this.user.authenticated = false
+        router.push({name: "Login"});
      },
 
     checkAuth() {
@@ -49,7 +51,7 @@ user: {
            this.user.authenticated = true
         }
         else {
-           this.user.authenticated = false      
+           this.user.authenticated = false
         }
     },
     getPermissions() {

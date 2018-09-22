@@ -35,7 +35,6 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     if (localStorage.getItem('isAuthenticated')==='false') {
       next({
-
         path: '/login',
         query: { redirect: to.fullPath }
       })
